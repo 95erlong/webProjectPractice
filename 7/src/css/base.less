@@ -1,0 +1,22 @@
+@homecolor: #ff3333;
+
+html {
+  background: @homecolor;
+}
+
+.box {
+  composes: bigBox from './common.css';
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  background: #333;
+  transition: transform 1s;
+}
+
+:root {
+  --mainColor: blue;
+}
+
+a {
+  color: var(--mainColor);
+}
