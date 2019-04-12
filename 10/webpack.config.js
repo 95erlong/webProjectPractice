@@ -16,61 +16,92 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    // publicPath: 'dist/',
+    publicPath: 'dist/',
     filename: '[name].bundle.js'
   },
-  
+
+  resolve: {
+    alias: {
+      // jquery 别名，告诉webpack jquery = src/libs/jquery.min.js
+      jquery$: path.resolve(__dirname, 'src/libs/jquery.min.js')
+    }
+  },
+
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.less$/,
-        use: extractLess.extract(
-          {
-            fallback: {
-              loader: 'style-loader',
+        use: extractLess.extract({
+          fallback: {
+            loader: 'style-loader',
+            options: {
+              singleton: true
+            }
+          },
+          use: [{
+              loader: 'css-loader',
               options: {
-                singleton: true,
+                importLoaders: 2
               }
             },
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 2,
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  ident: 'postcss',
-                  plugins: function(loader) {
-                    return [
-                      require('postcss-cssnext')()
-                    ]
-                  }
-                }
-              },
-              {
-                loader: 'less-loader'
-              }
-            ]
-          }
-        )
+
+            {
+              loader: 'less-loader'
+            }
+          ]
+        })
       },
+
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        use: [
-          {
+        use: [{
             loader: 'file-loader',
             options: {
-              // outputPath: 'dist/',
+              name: '[name]-[hash:5].[ext]',
+              limit: 1000,
+              publicPath: '',
+              outputPath: 'dist/',
               useRelativePath: true
             }
           }
+          // {
+          //     loader: 'img-loader',
+          //     options: {
+          //         pngquant: {
+          //             quality: 80
+          //         }
+          //     }
+          // }
         ]
+      },
+
+      {
+        test: /\.(eot|woff2?|ttf|svg)$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: '[name]-[hash:5].[ext]',
+            // 转为 baseurl 的前提
+            limit: 5000,
+            publicPath: '',
+            outputPath: 'dist/',
+            useRelativePath: true
+          }
+        }]
+      },
+
+      {
+        test: path.resolve(__dirname, 'src/app.js'),
+        use: [{
+          // 使用 imports-loader 注入
+          loader: 'imports-loader',
+          options: {
+            $: 'jquery'
+          }
+        }]
       }
     ]
   },
+
   plugins: [
     extractLess,
     new PurifyWebpack({
@@ -79,6 +110,10 @@ module.exports = {
         './src/*.js'
       ])
     }),
+    // 或是提供一个变量
+    // new webpack.ProvidePlugin({
+    //     $: 'jquery'
+    // }),
     new webpack.optimize.UglifyJsPlugin()
   ]
 }
