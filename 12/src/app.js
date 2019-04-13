@@ -1,7 +1,6 @@
 import './css/base.less'
 
-import { a } from './common/util';
-
+import { a } from "./common/util";
 a()
 
 var app = document.getElementById('app')

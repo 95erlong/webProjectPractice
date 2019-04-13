@@ -1,0 +1,68 @@
+body {
+  font-size: 20px;
+}
+
+.bigBox {
+  height: 400px;
+  width: 400px;
+  border: 5px solid #000;
+  color: #000;
+}
+
+.bigBox > div {
+  width: 64px;
+  height: 64px;
+  float: left;
+}
+
+.bigBox .ani1 {
+  background: url(../assets/imgs/1@2x-d5b6e.png) no-repeat;
+}
+
+.bigBox .ani2 {
+  background: url(../assets/imgs/2@2x-3a80d.png) no-repeat;
+}
+
+.bigBox .ani3 {
+  background: url(../assets/imgs/3@2x-5c83f.png) no-repeat;
+}
+
+.bigBox .ani4 {
+  background: url(../assets/imgs/4@2x-e66c4.png) no-repeat;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url(../assets/fonts/fontawesome-webfont-674f5.eot?#iefix&v=4.7.0) format('embedded-opentype'), url(../assets/fonts/fontawesome-webfont-af7ae.woff2) format('woff2'), url(../assets/fonts/fontawesome-webfont-fee66.woff) format('woff'), url(../assets/fonts/fontawesome-webfont-b0687.ttf) format('truetype'), url(../assets/fonts/fontawesome-webfont-912ec.svg#fontawesomeregular) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-folder:before {
+  content: "\F07B";
+}
+
+html {
+  background: #ff3333;
+}
+
+.box {
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  background: #333;
+}
+
+a.link {
+  transition: transform 1s;
+  width: calc(51%);
+}
